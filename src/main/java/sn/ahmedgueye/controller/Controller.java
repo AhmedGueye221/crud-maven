@@ -7,6 +7,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 public class Controller {
+    
     // Methode de recupération des données
     public void readData(){
         // Création d'une Connection
@@ -21,6 +22,17 @@ public class Controller {
         } catch (SQLException e){
             e.printStackTrace();
         }        
+    }
+
+    //Methode d'insertion de donnée
+    public void insertData(String prenom, String nom, int age){
+        try (Connection connection = DriverManager.getConnection("jdbc:sqlite:crud_maven.db")) {
+            Statement stmt = connection.createStatement();
+            String req = "INSERT INTO membres(prenom,nom,age) VALUES('"+prenom+"','"+nom+"','"+age+"')";
+            stmt.executeUpdate(req);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
 }

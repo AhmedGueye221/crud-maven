@@ -15,9 +15,9 @@ public class Controller {
             Statement stmt = connexion.createStatement();
             ResultSet res = stmt.executeQuery("SELECT * FROM membres");
             while (res.next()) {
-                System.out.println("Prenom : "+res.getString("prenom")
-                +"\nNom : "+res.getString("nom")                
-                +"\nAge : "+res.getString("age"));             
+                System.out.println( "Prenom : "+res.getString("prenom")
+                +"               Nom : "+res.getString("nom")
+                +"               Age : "+res.getString("age"));
             }
         } catch (SQLException e){
             e.printStackTrace();
@@ -26,6 +26,7 @@ public class Controller {
 
     //Methode d'insertion de donnée
     public void insertData(String prenom, String nom, int age){
+        // Creation d'une connexion
         try (Connection connection = DriverManager.getConnection("jdbc:sqlite:crud_maven.db")) {
             Statement stmt = connection.createStatement();
             String req = "INSERT INTO membres(prenom,nom,age) VALUES('"+prenom+"','"+nom+"','"+age+"')";
@@ -35,4 +36,15 @@ public class Controller {
         }
     }
 
+    // Methode de modification des données
+    public void updateData(int id, String prenom, String nom, int age){
+        // Creation d'une connexion
+        try (Connection connection = DriverManager.getConnection("jdbc:sqlite:crud_maven.db")) {
+            Statement stmt = connection.createStatement();
+            String req = "UPDATE membres SET prenom='"+prenom+"', nom='"+nom+"',age='"+age+"' WHERE id='"+id+"'";
+            stmt.executeUpdate(req);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
 }

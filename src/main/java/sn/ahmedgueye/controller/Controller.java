@@ -47,4 +47,15 @@ public class Controller {
             e.printStackTrace();
         }
     }
+
+    // Methode de suppression de donnée
+    public void deleteData(int id){
+        try (Connection connexion = DriverManager.getConnection("jdbc:sqlite:crud_maven.db")) {
+            Statement stmt = connexion.createStatement();
+            String req = "DELETE FROM membres WHERE id="+id+";";
+            stmt.executeUpdate(req);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
 }
